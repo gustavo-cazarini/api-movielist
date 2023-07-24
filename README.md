@@ -21,7 +21,7 @@ With the purpose of improving my concepts in OOP and improving my skills in Node
 ## To Do
 
 - Movie
-  - Get
+  - ~~Get~~
   - Post
   - Put
   - Delete

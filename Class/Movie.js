@@ -31,6 +31,16 @@ class Movie {
         return query;
     }
 
+    #postQuery() {
+        let query = "";
+        if (this.title && this.plot && this.year && this.runtime && this.imdbRating && this.poster) {
+            query = `INSERT INTO movie (title, plot, year, runtime, imdbRating, Poster)
+            VALUES ('${this.title}', '${this.plot}', '${this.year}', '${this.runtime}', '${this.imdbRating}', '${this.poster}')`;
+        }
+        else return null;
+        return query;
+    }
+
     // Public methods
     async get(field, id) {
         const strQuery = this.#selectQuery(field, id);
@@ -38,6 +48,16 @@ class Movie {
         const query = await connection.query(strQuery);
 
         return query.rows;
+    }
+
+    async post() {
+        const strQuery = this.#postQuery();
+        if (strQuery) {
+            const connection = await pool.connect();
+            const query = await connection.query(strQuery);
+            return query;
+        }
+        return;
     }
 }
 

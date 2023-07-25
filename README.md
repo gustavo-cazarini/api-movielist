@@ -22,7 +22,7 @@ With the purpose of improving my concepts in OOP and improving my skills in Node
 
 - Movie
   - ~~Get~~
-  - Post
+  - ~~Post~~
   - Put
   - Delete
 - Genre

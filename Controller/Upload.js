@@ -5,7 +5,12 @@ const { Movie } = require('../Class/Movie');
 
 const posterMulterStorage = multer.diskStorage({
     destination: async (req, file, cb) => {
-        const { title } = req.body;
+        let { title } = req.body;
+        let id;
+        if (!title) {
+            id = req.body.id;
+            title = await new Movie(id).get(['title'], id);
+        }
 
         const path = `./Image/${title}`;
         fs.mkdirSync(path, { recursive: true });

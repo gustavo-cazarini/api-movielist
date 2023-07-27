@@ -22,4 +22,10 @@ const create = async (req, res) => {
 
 }
 
-module.exports = { getAll, create, };
+const update = async (req, res) => {
+    let poster = req?.file;
+    const att = await Model.update(req, poster);
+    return res.status(200).json(att);
+}
+
+module.exports = { getAll, create, update, };

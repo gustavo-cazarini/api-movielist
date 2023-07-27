@@ -26,7 +26,7 @@ class Movie {
         } else fields += `* `;
 
         query += fields + `FROM movie `;
-        if (id) query += `WHERE id = ${this.id}`
+        if (id) query += `WHERE id = ${id}`;
 
         return query;
     }
@@ -38,6 +38,30 @@ class Movie {
             VALUES ('${this.title}', '${this.plot}', '${this.year}', '${this.runtime}', '${this.imdbRating}', '${this.poster}')`;
         }
         else return null;
+        return query;
+    }
+
+    #putQuery() {
+        let query = `UPDATE movie SET `;
+
+        let allVal = {
+            title: Boolean(this.title) ? this.title : null,
+            plot: Boolean(this.plot) ? this.plot : null,
+            year: Boolean(this.year) ? this.year : null,
+            runtime: Boolean(this.runtime) ? this.runtime : null,
+            imdbRating: Boolean(this.imdbRating) ? this.imdbRating : null,
+            poster: Boolean(this.poster) ? this.poster : null
+        }
+
+        Object.keys(allVal).forEach(key => {
+            if (Boolean(allVal[key])) {
+                query += `${key} = '${allVal[key]}', `;
+            }
+        });
+
+        query = query.slice(0, -2) + query.slice(-1);
+        query += `WHERE id = ${this.id}`
+
         return query;
     }
 
@@ -58,6 +82,13 @@ class Movie {
             return query;
         }
         return;
+    }
+
+    async put() {
+        const strQuery = this.#putQuery();
+        const connection = await pool.connect();
+        const query = await connection.query(strQuery);
+        return query;
     }
 }
 

@@ -28,4 +28,9 @@ const update = async (req, res) => {
     return res.status(200).json(att);
 }
 
-module.exports = { getAll, create, update, };
+const remove = async (req, res) => {
+    let del = await Model.remove(req);
+    return res.status(200).json(del);
+}
+
+module.exports = { getAll, create, update, remove };

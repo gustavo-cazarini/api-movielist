@@ -28,13 +28,13 @@ const update = async (data, file) => {
 
         let fs = require('fs');
         if (title) {
-            if (fs.existsSync(`./Images/${originalTitle}`)) {
-                fs.renameSync(`./Images/${originalTitle}`, `./Images/${title}`);
+            if (fs.existsSync(`./Image/${originalTitle}`)) {
+                fs.renameSync(`./Image/${originalTitle}`, `./Image/${title}`);
             }
         }
         if (file) {
-            if (fs.existsSync(`./Images/${title ? title : originalTitle}/${originalFilename}`)) {
-                fs.unlinkSync(`./Images/${title ? title : originalTitle}/${originalFilename}`);
+            if (fs.existsSync(`./Image/${title ? title : originalTitle}/${originalFilename}`)) {
+                fs.unlinkSync(`./Image/${title ? title : originalTitle}/${originalFilename}`);
             }
         }
     }
@@ -42,8 +42,26 @@ const update = async (data, file) => {
     return await movieToUpdate.put();
 }
 
+const remove = async (data) => {
+    const { id } = data.params;
+
+    if (!id) return;
+
+    const movieToDelete = new Movie(id);
+    const getData = await new Movie().get(['title', 'poster'], id);
+    if (getData?.length) {
+        const fs = require('fs');
+        if (fs.existsSync(`./Image/${getData[0].title}/${getData[0].poster}`)) {
+            fs.rmSync(`./Image/${getData[0].title}`, { recursive: true, force: true });
+        }
+    }
+
+    return movieToDelete.remove();
+}
+
 module.exports = {
     getAll,
     create,
     update,
+    remove
 };

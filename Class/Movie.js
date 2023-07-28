@@ -65,6 +65,11 @@ class Movie {
         return query;
     }
 
+    #removeQuery() {
+        if (this.id) return `DELETE FROM movie WHERE id = ${this.id}`;
+        return;
+    }
+
     // Public methods
     async get(field, id) {
         const strQuery = this.#selectQuery(field, id);
@@ -89,6 +94,19 @@ class Movie {
         const connection = await pool.connect();
         const query = await connection.query(strQuery);
         return query;
+    }
+
+    async remove() {
+        const strQuery = this.#removeQuery();
+        if (strQuery) {
+            try {
+                const connection = await pool.connect();
+                const query = await connection.query(strQuery);
+                return query;
+            } catch (err) {
+                console.log(`Error: ${err}`);
+            }
+        } else console.log('Error on remove/delete query');
     }
 }
 

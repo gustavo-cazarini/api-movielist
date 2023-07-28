@@ -20,11 +20,11 @@ With the purpose of improving my concepts in OOP and improving my skills in Node
 
 ## To Do
 
-- Movie
+- ~~Movie~~
   - ~~Get~~
   - ~~Post~~
   - ~~Put~~
-  - Delete
+  - ~~Delete~~
 - Genre
   - Get
   - Post

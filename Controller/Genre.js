@@ -12,6 +12,17 @@ const getAll = async (req, res) => {
     }
 }
 
+const create = async (req, res) => {
+    try {
+        const insert = await Model.create(req);
+        return res.status(201).json(insert);
+    } catch (err) {
+        console.log(`An error occurred while posting the data:\n${err}`);
+        return false;
+    }
+}
+
 module.exports = {
     getAll,
+    create,
 }

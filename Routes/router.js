@@ -10,5 +10,6 @@ router.put('/api/movie', uploadPoster.single("poster"), Movie.update);
 router.delete('/api/movie/:id', Movie.remove);
 
 router.get('/api/genre', Genre.getAll);
+router.post('/api/genre', Genre.create);
 
 module.exports = router;

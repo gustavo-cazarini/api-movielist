@@ -27,7 +27,7 @@ With the purpose of improving my concepts in OOP and improving my skills in Node
   - ~~Delete~~
 - Genre
   - ~~Get~~
-  - Post
+  - ~~Post~~
   - Put
   - Delete
 - Images

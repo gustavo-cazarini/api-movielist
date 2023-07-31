@@ -14,6 +14,15 @@ class Genre {
         return query;
     }
 
+    #postQuery() {
+        if (!this.title) return false;
+
+        let query = `INSERT INTO genre (title) 
+            VALUES ('${this.title}')`;
+
+        return query;
+    }
+
     // Public methods
     async get(id) {
         try {
@@ -23,6 +32,19 @@ class Genre {
             return queryResult.rows;
         } catch (err) {
             console.log(`Error: genre get method\n${err}`);
+            return false;
+        }
+    }
+
+    async post() {
+        const strQuery = this.#postQuery();
+        if (!strQuery) return false;
+        try {
+            const connection = await pool.connect();
+            const queryResult = await connection.query(strQuery);
+            return queryResult;
+        } catch (err) {
+            console.log(`Error: genre post method\n${err}`);
             return false;
         }
     }

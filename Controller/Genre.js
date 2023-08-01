@@ -36,8 +36,23 @@ const update = async (req, res) => {
     }
 }
 
+const remove = async (req, res) => {
+    try {
+        const remove = await Model.remove(req);
+        if (!remove) {
+            console.log(`Error: genre del failure`);
+            return false;
+        }
+        return res.status(200).json(remove);
+    } catch (err) {
+        console.log(`An error occurred while removing the data:\n${err}`);
+        return false;
+    }
+}
+
 module.exports = {
     getAll,
     create,
     update,
+    remove
 }

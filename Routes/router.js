@@ -12,5 +12,6 @@ router.delete('/api/movie/:id', Movie.remove);
 router.get('/api/genre', Genre.getAll);
 router.post('/api/genre', Genre.create);
 router.put('/api/genre/:id', Genre.update);
+router.delete('/api/genre/:id', Genre.remove);
 
 module.exports = router;

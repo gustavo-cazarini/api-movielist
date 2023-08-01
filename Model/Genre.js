@@ -21,8 +21,22 @@ const update = async (data) => {
     return await genreToUpdate.put();
 }
 
+const remove = async (data) => {
+    const { id } = data.params;
+
+    if (!id) {
+        console.log("Error: no id received during del request");
+        return false;
+    }
+
+    const genreToRemove = new Genre(id);
+
+    return await genreToRemove.remove();
+}
+
 module.exports = {
     getAll,
     create,
     update,
+    remove
 };

@@ -25,11 +25,11 @@ With the purpose of improving my concepts in OOP and improving my skills in Node
   - ~~Post~~
   - ~~Put~~
   - ~~Delete~~
-- Genre
+- ~~Genre~~
   - ~~Get~~
   - ~~Post~~
   - ~~Put~~
-  - Delete
+  - ~~Delete~~
 - Images
   - Get
   - Post

@@ -22,7 +22,22 @@ const create = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+    try {
+        const update = await Model.update(req);
+        if (!update) {
+            console.log(`Error: genre update failure`);
+            return false;
+        }
+        return res.status(200).json(update);
+    } catch (err) {
+        console.log(`An error occurred while putting the data:\n${err}`);
+        return false;
+    }
+}
+
 module.exports = {
     getAll,
     create,
+    update,
 }

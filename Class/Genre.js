@@ -23,6 +23,15 @@ class Genre {
         return query;
     }
 
+    #putQuery() {
+        if (!this.title && !this.id) return false;
+
+        let query = `UPDATE genre SET title = '${this.title}'
+            WHERE id = ${this.id}`;
+
+        return query;
+    }
+
     // Public methods
     async get(id) {
         try {
@@ -45,6 +54,24 @@ class Genre {
             return queryResult;
         } catch (err) {
             console.log(`Error: genre post method\n${err}`);
+            return false;
+        }
+    }
+
+    async put() {
+        const strQuery = this.#putQuery();
+
+        if (!strQuery) {
+            console.log(`Error on genre put query`);
+            return false;
+        }
+
+        try {
+            const connection = await pool.connect();
+            const queryResult = await connection.query(strQuery);
+            return queryResult;
+        } catch (err) {
+            console.log(`Error: genre put method\n${err}`);
             return false;
         }
     }

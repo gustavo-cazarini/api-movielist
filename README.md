@@ -32,6 +32,6 @@ With the purpose of improving my concepts in OOP and improving my skills in Node
   - ~~Delete~~
 - Images
   - ~~Get~~
-  - Post
+  - ~~Post~~
   - Put
   - Delete

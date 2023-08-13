@@ -1,6 +1,7 @@
 const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
+const { title } = require('process');
 const { Movie } = require('../Class/Movie');
 
 const posterMulterStorage = multer.diskStorage({
@@ -21,6 +22,21 @@ const posterMulterStorage = multer.diskStorage({
     },
 });
 
+const imageMulterStorage = multer.diskStorage({
+    destination: async (req, file, cb) => {
+        const { movieId } = req.body;
+        let title = await new Movie(movieId).get(['title'], movieId);
+        title = title[0].title;
+        if (!title) return false;
+        const path = `./Image/${title}`;
+        fs.mkdirSync(path, { recursive: true });
+        cb(null, path);
+    },
+    filename: (req, file, cb) => {
+        cb(null, `image-${Date.now()}` + path.extname(file.originalname));
+    },
+});
+
 const multerFilter = (req, file, cb) => {
     if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
         return cb(new Error("Please upload a image"));
@@ -33,4 +49,9 @@ const uploadPoster = multer({
     fileFilter: multerFilter,
 });
 
-module.exports = { uploadPoster };
+const uploadImage = multer({
+    storage: imageMulterStorage,
+    fileFilter: multerFilter,
+});
+
+module.exports = { uploadPoster, uploadImage };

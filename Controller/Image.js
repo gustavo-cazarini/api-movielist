@@ -12,6 +12,18 @@ const getAll = async (req, res) => {
     }
 };
 
+const create = async (req, res) => {
+    if (!req && !req.files) return false;
+    try {
+        const insert = await Model.create(req, req.files);
+        return res.status(201).json(insert);
+    } catch (err) {
+        console.log(`An error occurred while posting the data:\n${err}`);
+        return false;
+    }
+}
+
 module.exports = {
     getAll,
+    create,
 }

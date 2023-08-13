@@ -2,7 +2,7 @@ const express = require('express');
 const Movie = require('../Controller/Movie');
 const Genre = require('../Controller/Genre');
 const Image = require('../Controller/Image');
-const { uploadPoster } = require('../Controller/Upload');
+const { uploadPoster, uploadImage } = require('../Controller/Upload');
 const router = express.Router();
 
 router.get('/api/movie', Movie.getAll);
@@ -16,5 +16,6 @@ router.put('/api/genre/:id', Genre.update);
 router.delete('/api/genre/:id', Genre.remove);
 
 router.get('/api/image', Image.getAll);
+router.post('/api/image', uploadImage.array("image"), Image.create);
 
 module.exports = router;

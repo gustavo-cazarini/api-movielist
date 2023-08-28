@@ -1,5 +1,6 @@
 const { query } = require('express');
 const pool = require('../DB/Connection');
+const { Movie } = require('./Movie');
 
 // class Image extends Movie
 class Image {
@@ -35,6 +36,14 @@ class Image {
         return query;
     }
 
+    #deleteQuery() {
+        if (!this.id) {
+            console.log("Error: id is missing\nAt Image Class, deleteQuery private method");
+            return false;
+        }
+        return `DELETE FROM image WHERE id = ${this.id}`;
+    }
+
     async getImage(fields) {
         const strQuery = this.#getQuery(fields);
         const connection = await pool.connect();
@@ -48,6 +57,22 @@ class Image {
         const connection = await pool.connect();
         const queryResult = await connection.query(strQuery);
         return queryResult;
+    }
+
+    async deleteImage() {
+        const strQuery = this.#deleteQuery();
+        if (!strQuery) {
+            console.log("Error: deleteImage method at Image class\nQuery is missing");
+            return false;
+        }
+        try {
+            const connection = await pool.connect();
+            const queryResult = await connection.query(strQuery);
+            return queryResult;
+        } catch (err) {
+            console.log(`Error: deleteImage method at Image class\n${err}`);
+            return false;
+        }
     }
 }
 

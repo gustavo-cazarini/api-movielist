@@ -17,5 +17,6 @@ router.delete('/api/genre/:id', Genre.remove);
 
 router.get('/api/image', Image.getAll);
 router.post('/api/image', uploadImage.array("image"), Image.create);
+router.delete('/api/image/:id', Image.remove);
 
 module.exports = router;

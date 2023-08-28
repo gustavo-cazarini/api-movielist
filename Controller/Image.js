@@ -23,7 +23,13 @@ const create = async (req, res) => {
     }
 }
 
+const remove = async (req, res) => {
+    let rem = await Model.remove(req);
+    return res.status(200).json(rem);
+}
+
 module.exports = {
     getAll,
     create,
+    remove,
 }
